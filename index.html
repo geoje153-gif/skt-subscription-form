@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKT 인터넷+TV 청약 신청</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #20c997 0%, #51cf66 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #20c997;
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+            border-color: #20c997;
+            box-shadow: 0 0 0 3px rgba(32, 201, 151, 0.1);
+        }
+        
+        .checkbox-group {
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-item:hover {
+            border-color: #20c997;
+            background: #f0fdf7;
+        }
+        
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #20c997;
+        }
+        
+        .checkbox-content {
+            flex: 1;
+        }
+        
+        .checkbox-content label {
+            margin: 0;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+        }
+        
+        .checkbox-content p {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #20c997 0%, #51cf66 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(32, 201, 151, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 8px;
+            font-weight: 600;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .form-wrapper {
+            display: none;
+        }
+        
+        .form-wrapper.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-message" id="successMessage">
+            신청을 완료했습니다!
+        </div>
+        
+        <div class="form-wrapper show" id="formWrapper">
+            <div class="header">
+                <h1>회선 초저렴 인터넷+TV</h1>
+                <p>거래를 동료해 부다롭는 이다람 가졌다</p>
+            </div>
+            
+            <form id="subscriptionForm">
+                <div class="form-group">
+                    <label for="name">이름 <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="성함을 입력하세요" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">전화번호 <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required>
+                </div>
+                
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="consentPersonal" name="consentPersonal" required>
+                        <div class="checkbox-content">
+                            <label for="consentPersonal">개인정보 수집 및 이용 동의 <span class="required">*</span></label>
+                            <p>초성로 검토하비법 야으그마 에깔높ㅡ마 마 건느단녀되ㅁ시다.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="consentMarketing" name="consentMarketing">
+                        <div class="checkbox-content">
+                            <label for="consentMarketing">마케팅 정보 수신 동의</label>
+                            <p>초성로단아 마케팅 봉송을 받을 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit">신청하기</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            let formatted = '';
+            
+            if (value.length <= 3) {
+                formatted = value;
+            } else if (value.length <= 7) {
+                formatted = value.slice(0, 3) + '-' + value.slice(3);
+            } else {
+                formatted = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+            }
+            
+            e.target.value = formatted;
+        });
+        
+        document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const consentPersonal = document.getElementById('consentPersonal').checked;
+            
+            if (!name || !phone || !consentPersonal) {
+                alert('모든 필수 항목을 입력하세요.');
+                return;
+            }
+            
+            console.log({
+                name: name,
+                phone: phone,
+                consentPersonal: consentPersonal,
+                consentMarketing: document.getElementById('consentMarketing').checked
+            });
+            
+            document.getElementById('formWrapper').classList.remove('show');
+            document.getElementById('successMessage').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('subscriptionForm').reset();
+                document.getElementById('formWrapper').classList.add('show');
+                document.getElementById('successMessage').style.display = 'none';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
