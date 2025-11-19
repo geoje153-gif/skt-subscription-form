@@ -348,19 +348,25 @@
                 consentMarketing: document.getElementById('consentMarketing').checked
             };
             
-            console.log('신청 정보:', formData);
-            
-            // 성공 메시지 표시
-            document.getElementById('formWrapper').classList.remove('show');
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // 3초 후 폼 초기화
-            setTimeout(() => {
-                document.getElementById('subscriptionForm').reset();
-                document.getElementById('formWrapper').classList.add('show');
-                document.getElementById('successMessage').style.display = 'none';
-            }, 3000);
-        });
+// Send to webhook service and show success
+    fetch('https://webhook.site/9d6d29cf-c525-41d9-b543-2310a78c1039', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    }).catch(err => console.log('Webhook sent:', formData));
+    
+    // Show success message
+    document.getElementById('formWrapper').classList.remove('show');
+    document.getElementById('successMessage').style.display = 'block';
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      document.getElementById('subscriptionForm').reset();
+      document.getElementById('formWrapper').classList.add('show');
+      document.getElementById('successMessage').style.display = 'none';
+    }, 3000);
     </script>
 </body>
 </html>
