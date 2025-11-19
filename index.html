@@ -116,127 +116,118 @@
   </style>
 </head>
 <body>
-<div class="container">
-  <div id="successMessage" class="success-message">
-    <h2>✓ 신청이 완료되었습니다!</h2>
-    <p>감사합니다. 곧 안내전화가 갈 예정입니다.</p>
-  </div>
-  
-  <div id="formWrapper" class="form-wrapper">
-    <div class="header">
-      <div class="logo">🌐 SK Telecom</div>
-      <h1>인터넷+TV 가입</h1>
-      <p>초고속 인터넷과 프리미엄 TV를 한 번에!<br>빠르고 간단한 신청 과정</p>
+  <div class="container">
+    <div id="successMessage" class="success-message">
+      <h2>✓ 신청이 완료되었습니다!</h2>
+      <p>감사합니다. 곧 안내전화가 갈 예정입니다.</p>
     </div>
-    
-    <form id="subscriptionForm">
-      <div class="form-group">
-        <label>성명 <span class="required">*</span></label>
-        <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
+
+    <div id="formWrapper" class="form-wrapper">
+      <div class="header">
+        <div class="logo">🌐 SK Telecom</div>
+        <h1>인터넷+TV 가입</h1>
+        <p>초고속 인터넷과 프리미엄 TV를 한 번에!<br>빠르고 간단한 신청 과정</p>
       </div>
-      
-      <div class="form-group">
-        <label>휴대폰번호 <span class="required">*</span></label>
-        <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" inputmode="numeric" required>
-      </div>
-      
-      <div class="checkbox-group">
-        <div class="checkbox-item">
-          <input type="checkbox" id="consentPersonal" name="consentPersonal" required>
-          <div class="checkbox-content">
-            <label for="consentPersonal">개인정보 수집·이용 동의 <span class="required">*</span></label>
-            <p>SKT 서비스 제공을 위한 최소한의 개인정보를 수집·이용하며, 개인정보보호방침에 따라 관리됩니다.</p>
+
+      <form id="subscriptionForm">
+        <div class="form-group">
+          <label>성명 <span class="required">*</span></label>
+          <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
+        </div>
+
+        <div class="form-group">
+          <label>휴대폰번호 <span class="required">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" inputmode="numeric" required>
+        </div>
+
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="consentPersonal" name="consentPersonal" required>
+            <div class="checkbox-content">
+              <label for="consentPersonal">개인정보 수집·이용 동의 <span class="required">*</span></label>
+              <p>SKT 서비스 제공을 위한 최소한의 개인정보를 수집·이용하며, 개인정보보호방침에 따라 관리됩니다.</p>
+            </div>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="consentMarketing" name="consentMarketing">
+            <div class="checkbox-content">
+              <label for="consentMarketing">마케팅 정보 수신 동의</label>
+              <p>SKT의 신규 서비스와 이벤트 정보를 받을 수 있습니다. 언제든 해지할 수 있습니다.</p>
+            </div>
           </div>
         </div>
-        <div class="checkbox-item">
-          <input type="checkbox" id="consentMarketing" name="consentMarketing">
-          <div class="checkbox-content">
-            <label for="consentMarketing">마케팅 정보 수신 동의</label>
-            <p>SKT의 신규 서비스와 이벤트 정보를 받을 수 있습니다. 언제든 해지할 수 있습니다.</p>
-          </div>
-        </div>
-      </div>
-      
-      <button type="submit">가입 신청하기</button>
-    </form>
+
+        <button type="submit">가입 신청하기</button>
+      </form>
+    </div>
   </div>
-</div>
 
-<script>
-// 전화번호 자동 포맷팅
-document.getElementById('phone').addEventListener('input', function(e) {
-  let value = e.target.value.replace(/\D/g, '');
-  let formatted = '';
-  if (value.length <= 3) {
-    formatted = value;
-  } else if (value.length <= 7) {
-    formatted = value.slice(0, 3) + '-' + value.slice(3);
-  } else {
-    formatted = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
-  }
-  e.target.value = formatted;
-});
-
-// 폼 제출 처리
-document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const consentPersonal = document.getElementById('consentPersonal').checked;
-  const consentMarketing = document.getElementById('consentMarketing').checked;
-  
-  if (!name) {
-    alert('성명을 입력하세요.');
-    return;
-  }
-  if (!phone || phone.replace(/-/g, '').length < 10) {
-    alert('올바른 휴대폰번호를 입력하세요.');
-    return;
-  }
-  if (!consentPersonal) {
-    alert('개인정보 수집·이용에 동의해주세요.');
-    return;
-  }
-  
-  const formData = {
-    timestamp: new Date().toLocaleString('ko-KR'),
-    name: name,
-    phone: phone,
-    consentPersonal: consentPersonal,
-    consentMarketing: consentMarketing
-  };
-  
-  // Apps Script로 JSON 데이터 전송
-  fetch('https://script.google.com/macros/s/AkfycbypAkU3VkR9s81DxWi5Pe6NTchTi05vEma4N5eoWlFoRzBeyjGW0zxlq5FFph', {
-    method: 'POST',
-    
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
-  }).then(() => {
-    // Webhook에도 전송
-    return fetch('https://webhook.site/9d6d29cf-c525-41d9-b543-2310a78c1039', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
+  <script>
+    // 전화번호 자동 포맷팅
+    document.getElementById('phone').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      let formatted = '';
+      if (value.length <= 3) {
+        formatted = value;
+      } else if (value.length <= 7) {
+        formatted = value.slice(0, 3) + '-' + value.slice(3);
+      } else {
+        formatted = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+      }
+      e.target.value = formatted;
     });
-  }).catch(err => console.log('전송 완료'));
-  
-  // 성공 메시지 표시
-  document.getElementById('formWrapper').style.display = 'none';
-  document.getElementById('successMessage').style.display = 'block';
-  
-  // 3초 후 폼 초기화
-  setTimeout(() => {
-    document.getElementById('subscriptionForm').reset();
-    document.getElementById('formWrapper').style.display = 'block';
-    document.getElementById('successMessage').style.display = 'none';
-  }, 3000);
-});
-</script>
+
+    // 폼 제출 처리
+    document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const consentPersonal = document.getElementById('consentPersonal').checked;
+      const consentMarketing = document.getElementById('consentMarketing').checked;
+
+      if (!name) {
+        alert('성명을 입력하세요.');
+        return;
+      }
+      if (!phone || phone.replace(/-/g, '').length < 10) {
+        alert('올바른 휴대폰번호를 입력하세요.');
+        return;
+      }
+      if (!consentPersonal) {
+        alert('개인정보 수집·이용에 동의해주세요.');
+        return;
+      }
+
+      // URL-encoded 형식으로 데이터 생성
+      const params = new URLSearchParams();
+      params.append('timestamp', new Date().toLocaleString('ko-KR'));
+      params.append('name', name);
+      params.append('phone', phone);
+      params.append('consentPersonal', consentPersonal);
+      params.append('consentMarketing', consentMarketing);
+
+      // Apps Script로 POST 전송
+      fetch('https://script.google.com/macros/s/AkfycbypAkU3VkR9s81DxWi5Pe6NTchTi05vEma4N5eoWlFoRzBeyjGW0zxlq5FFph/exec', {
+        method: 'POST',
+        body: params
+      }).then(response => response.text())
+        .then(result => {
+          console.log('Apps Script 응답:', result);
+        })
+        .catch(err => console.log('전송 완료', err));
+
+      // 성공 메시지 표시
+      document.getElementById('formWrapper').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+
+      // 3초 후 폼 초기화
+      setTimeout(() => {
+        document.getElementById('subscriptionForm').reset();
+        document.getElementById('formWrapper').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+      }, 3000);
+    });
+  </script>
 </body>
 </html>
