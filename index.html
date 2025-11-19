@@ -347,26 +347,45 @@
                 consentPersonal: consentPersonal,
                 consentMarketing: document.getElementById('consentMarketing').checked
             };
-            
-// Send to webhook service and show success
-    fetch('https://webhook.site/9d6d29cf-c525-41d9-b543-2310a78c1039', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    }).catch(err => console.log('Webhook sent:', formData));
+
+                // Google Sheets에 데이터 저장
+    const SHEET_ID = '1zlNWY-6hb-nAv52VSn_EJJjPMw7OAHKSuFgpXdCiCco';
     
-    // Show success message
+    // 행 데이터 준비
+    const rowData = [formData.timestamp, formData.name, formData.phone, formData.consentPersonal ? '동의' : '미동의', formData.consentMarketing ? '동의' : '미동의'];
+    
+    // Webhook.site와 Google Sheets에 동시 전송
+    Promise.allSettled([
+      // Webhook에 전송
+      fetch('https://webhook.site/9d6d29cf-c525-41d9-b543-2310a78c1039', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      }),
+      // Google Sheets에 직접 추가 (Apps Script를 통한 방식)
+      // 또는 Google Forms 제출 URL 사용
+      fetch('https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams({
+          'entry.TIMESTAMP': formData.timestamp,
+          'entry.NAME': formData.name,
+          'entry.PHONE': formData.phone,
+          'entry.CONSENT_PERSONAL': formData.consentPersonal ? '동의' : '미동의',
+          'entry.CONSENT_MARKETING': formData.consentMarketing ? '동의' : '미동의'
+        })
+      })
+    ]).catch(err => console.log('Data submission completed'));
+    
+    // 성공 메시지 표시
     document.getElementById('formWrapper').classList.remove('show');
     document.getElementById('successMessage').style.display = 'block';
     
-    // Reset form after 3 seconds
+    // 3초 후 폼 초기화
     setTimeout(() => {
       document.getElementById('subscriptionForm').reset();
       document.getElementById('formWrapper').classList.add('show');
       document.getElementById('successMessage').style.display = 'none';
     }, 3000);
-    </script>
-</body>
-</html>
+            
+// Sen
