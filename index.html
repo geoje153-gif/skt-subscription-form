@@ -1,391 +1,242 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKT 인터넷+TV 가입 신청</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #20c997 0%, #51cf66 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            max-width: 550px;
-            width: 100%;
-            padding: 45px 35px;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 45px;
-            border-bottom: 3px solid #20c997;
-            padding-bottom: 20px;
-        }
-        
-        .logo {
-            font-size: 14px;
-            font-weight: 700;
-            color: #20c997;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-        
-        .header h1 {
-            color: #1a1a1a;
-            font-size: 26px;
-            margin-bottom: 8px;
-            font-weight: 800;
-        }
-        
-        .header p {
-            color: #666;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-        
-        .form-group {
-            margin-bottom: 28px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #1a1a1a;
-            font-weight: 700;
-            font-size: 14px;
-        }
-        
-        .required {
-            color: #e74c3c;
-            margin-left: 4px;
-        }
-        
-        input[type="text"],
-        input[type="tel"] {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            letter-spacing: 0.3px;
-        }
-        
-        input[type="text"]:focus,
-        input[type="tel"]:focus {
-            outline: none;
-            border-color: #20c997;
-            box-shadow: 0 0 0 4px rgba(32, 201, 151, 0.15);
-        }
-        
-        input[type="text"]::placeholder,
-        input[type="tel"]::placeholder {
-            color: #adb5bd;
-        }
-        
-        .checkbox-group {
-            margin-bottom: 25px;
-            background: #f8f9fa;
-            padding: 18px;
-            border-radius: 12px;
-            border: 2px solid #e9ecef;
-        }
-        
-        .checkbox-group-title {
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 14px;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 14px;
-            padding: 12px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
-            transition: all 0.3s ease;
-        }
-        
-        .checkbox-item:last-child {
-            margin-bottom: 0;
-        }
-        
-        .checkbox-item:hover {
-            border-color: #20c997;
-            background: #f0fdf7;
-        }
-        
-        input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-top: 1px;
-            margin-right: 14px;
-            cursor: pointer;
-            accent-color: #20c997;
-            flex-shrink: 0;
-        }
-        
-        .checkbox-content {
-            flex: 1;
-            font-size: 14px;
-        }
-        
-        .checkbox-content label {
-            margin: 0;
-            font-weight: 700;
-            color: #1a1a1a;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        
-        .checkbox-content p {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-            line-height: 1.5;
-        }
-        
-        button {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #20c997 0%, #51cf66 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(32, 201, 151, 0.3);
-        }
-        
-        button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(32, 201, 151, 0.4);
-        }
-        
-        button:active:not(:disabled) {
-            transform: translateY(0);
-        }
-        
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        
-        .success-message {
-            display: none;
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 18px;
-            background: #d4edda;
-            color: #155724;
-            border-radius: 10px;
-            font-weight: 600;
-            animation: slideIn 0.3s ease;
-            border: 2px solid #c3e6cb;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .form-wrapper {
-            display: none;
-        }
-        
-        .form-wrapper.show {
-            display: block;
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 30px 20px;
-            }
-            
-            .header h1 {
-                font-size: 22px;
-            }
-            
-            input[type="text"],
-            input[type="tel"] {
-                padding: 12px 14px;
-                font-size: 16px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKT 인터넷+TV 가입 신청</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #20c997 0%, #51cf66 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      max-width: 550px;
+      width: 100%;
+      padding: 45px 35px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 45px;
+      border-bottom: 3px solid #20c997;
+      padding-bottom: 20px;
+    }
+    .logo { font-size: 14px; font-weight: 700; color: #20c997; margin-bottom: 12px; }
+    .header h1 { color: #1a1a1a; font-size: 26px; margin-bottom: 8px; font-weight: 800; }
+    .header p { color: #666; font-size: 13px; line-height: 1.6; }
+    .form-group { margin-bottom: 28px; }
+    label { display: block; margin-bottom: 10px; color: #1a1a1a; font-weight: 700; font-size: 14px; }
+    .required { color: #e74c3c; }
+    input[type="text"], input[type="tel"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+    input[type="text"]:focus, input[type="tel"]:focus {
+      outline: none;
+      border-color: #20c997;
+      box-shadow: 0 0 0 4px rgba(32, 201, 151, 0.15);
+    }
+    .checkbox-group {
+      margin-bottom: 25px;
+      background: #f8f9fa;
+      padding: 18px;
+      border-radius: 12px;
+      border: 2px solid #e9ecef;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+    }
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+      margin-right: 14px;
+      cursor: pointer;
+      accent-color: #20c997;
+      flex-shrink: 0;
+    }
+    .checkbox-content {
+      flex: 1;
+      font-size: 14px;
+    }
+    .checkbox-content label {
+      margin: 0;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .checkbox-content p {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #20c997 0%, #51cf66 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(32, 201, 151, 0.3);
+    }
+    button:hover { transform: translateY(-2px); }
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 25px;
+      background: #d4edda;
+      color: #155724;
+      border-radius: 10px;
+      font-weight: 600;
+      border: 2px solid #c3e6cb;
+      margin-bottom: 20px;
+    }
+    .success-message h2 { margin-bottom: 10px; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="success-message" id="successMessage">
-            신청이 완료되었습니다!<br><span style="font-size: 12px; margin-top: 5px; display: block;">감사합니다</span>
-        </div>
-        
-        <div class="form-wrapper show" id="formWrapper">
-            <div class="header">
-                <div class="logo">🌐 SK Telecom</div>
-                <h1>인터넷+TV 가입</h1>
-                <p>초고속 인터넷과 프리미엄 TV를 한 번에!<br>빠르고 간단한 신청 과정</p>
-            </div>
-            
-            <form id="subscriptionForm">
-                <div class="form-group">
-                    <label for="name">성명<span class="required">*</span></label>
-                    <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">휴대폰번호<span class="required">*</span></label>
-                    <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" inputmode="numeric" required>
-                </div>
-                
-                <div class="checkbox-group">
-                    <div class="checkbox-group-title">동의사항</div>
-                    
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="consentPersonal" name="consentPersonal" required>
-                        <div class="checkbox-content">
-                            <label for="consentPersonal">개인정보 수집·이용 동의<span class="required">*</span></label>
-                            <p>SKT 서비스 제공을 위한 최소한의 개인정보를 수집·이용하며, 개인정보보호방침에 따라 관리됩니다.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="consentMarketing" name="consentMarketing">
-                        <div class="checkbox-content">
-                            <label for="consentMarketing">마케팅 정보 수신 동의</label>
-                            <p>SKT의 신규 서비스와 이벤트 정보를 받을 수 있습니다. 언제든 해지할 수 있습니다.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <button type="submit">가입 신청하기</button>
-            </form>
-        </div>
+<div class="container">
+  <div id="successMessage" class="success-message">
+    <h2>✓ 신청이 완료되었습니다!</h2>
+    <p>감사합니다. 곧 안내전화가 갈 예정입니다.</p>
+  </div>
+  
+  <div id="formWrapper" class="form-wrapper">
+    <div class="header">
+      <div class="logo">🌐 SK Telecom</div>
+      <h1>인터넷+TV 가입</h1>
+      <p>초고속 인터넷과 프리미엄 TV를 한 번에!<br>빠르고 간단한 신청 과정</p>
     </div>
     
-    <script>
-        // 전화번호 자동 포맷팅
-        document.getElementById('phone').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            let formatted = '';
-            
-            if (value.length <= 3) {
-                formatted = value;
-            } else if (value.length <= 7) {
-                formatted = value.slice(0, 3) + '-' + value.slice(3);
-            } else if (value.length <= 11) {
-                formatted = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
-            } else {
-                formatted = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
-            }
-            
-            e.target.value = formatted;
-        });
-        
-        // 폼 제출 처리
-        document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const consentPersonal = document.getElementById('consentPersonal').checked;
-            
-            // 유효성 검사
-            if (!name) {
-                alert('성명을 입력하세요.');
-                document.getElementById('name').focus();
-                return;
-            }
-            
-            if (!phone || phone.replace(/-/g, '').length < 10) {
-                alert('올바른 휴대폰번호를 입력하세요.');
-                document.getElementById('phone').focus();
-                return;
-            }
-            
-            if (!consentPersonal) {
-                alert('개인정보 수집·이용에 동의해주세요.');
-                document.getElementById('consentPersonal').focus();
-                return;
-            }
-            
-            // 데이터 저장 (콘솔에 출력 - 실제로는 서버로 전송)
-            const formData = {
-                timestamp: new Date().toLocaleString('ko-KR'),
-                name: name,
-                phone: phone,
-                consentPersonal: consentPersonal,
-                consentMarketing: document.getElementById('consentMarketing').checked
-            };
+    <form id="subscriptionForm">
+      <div class="form-group">
+        <label>성명 <span class="required">*</span></label>
+        <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
+      </div>
+      
+      <div class="form-group">
+        <label>휴대폰번호 <span class="required">*</span></label>
+        <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" inputmode="numeric" required>
+      </div>
+      
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <input type="checkbox" id="consentPersonal" name="consentPersonal" required>
+          <div class="checkbox-content">
+            <label for="consentPersonal">개인정보 수집·이용 동의 <span class="required">*</span></label>
+            <p>SKT 서비스 제공을 위한 최소한의 개인정보를 수집·이용하며, 개인정보보호방침에 따라 관리됩니다.</p>
+          </div>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="consentMarketing" name="consentMarketing">
+          <div class="checkbox-content">
+            <label for="consentMarketing">마케팅 정보 수신 동의</label>
+            <p>SKT의 신규 서비스와 이벤트 정보를 받을 수 있습니다. 언제든 해지할 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit">가입 신청하기</button>
+    </form>
+  </div>
+</div>
 
-                // Google Sheets에 데이터 저장
-    const SHEET_ID = '1zlNWY-6hb-nAv52VSn_EJJjPMw7OAHKSuFgpXdCiCco';
-    
-    // 행 데이터 준비
-    const rowData = [formData.timestamp, formData.name, formData.phone, formData.consentPersonal ? '동의' : '미동의', formData.consentMarketing ? '동의' : '미동의'];
-    
-    // Webhook.site와 Google Sheets에 동시 전송
-    Promise.allSettled([
-      // Webhook에 전송
-      fetch('https://webhook.site/9d6d29cf-c525-41d9-b543-2310a78c1039', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      }),
-      // Google Sheets에 직접 추가 (Apps Script를 통한 방식)
-      // 또는 Google Forms 제출 URL 사용
-      fetch('https://script.google.com/macros/s/AkfycbypAkU3VkR9s81DxWi5Pe6NTchTi05vEma4N5eoWlFoRzBeyjGW0zxlq5FFph...', {
-        method: 'POST',
-        mode: 'no-cors',
-        body: new URLSearchParams({
-          'entry.TIMESTAMP': formData.timestamp,
-          'entry.NAME': formData.name,
-          'entry.PHONE': formData.phone,
-          'entry.CONSENT_PERSONAL': formData.consentPersonal ? '동의' : '미동의',
-          'entry.CONSENT_MARKETING': formData.consentMarketing ? '동의' : '미동의'
-        })
-      })
-    ]).catch(err => console.log('Data submission completed'));
-    
-    // 성공 메시지 표시
-    document.getElementById('formWrapper').classList.remove('show');
-    document.getElementById('successMessage').style.display = 'block';
-    
-    // 3초 후 폼 초기화
-    setTimeout(() => {
-      document.getElementById('subscriptionForm').reset();
-      document.getElementById('formWrapper').classList.add('show');
-      document.getElementById('successMessage').style.display = 'none';
-    }, 3000);
-            
-// Sen
+<script>
+// 전화번호 자동 포맷팅
+document.getElementById('phone').addEventListener('input', function(e) {
+  let value = e.target.value.replace(/\D/g, '');
+  let formatted = '';
+  if (value.length <= 3) {
+    formatted = value;
+  } else if (value.length <= 7) {
+    formatted = value.slice(0, 3) + '-' + value.slice(3);
+  } else {
+    formatted = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+  }
+  e.target.value = formatted;
+});
+
+// 폼 제출 처리
+document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const consentPersonal = document.getElementById('consentPersonal').checked;
+  const consentMarketing = document.getElementById('consentMarketing').checked;
+  
+  if (!name) {
+    alert('성명을 입력하세요.');
+    return;
+  }
+  if (!phone || phone.replace(/-/g, '').length < 10) {
+    alert('올바른 휴대폰번호를 입력하세요.');
+    return;
+  }
+  if (!consentPersonal) {
+    alert('개인정보 수집·이용에 동의해주세요.');
+    return;
+  }
+  
+  const formData = {
+    timestamp: new Date().toLocaleString('ko-KR'),
+    name: name,
+    phone: phone,
+    consentPersonal: consentPersonal,
+    consentMarketing: consentMarketing
+  };
+  
+  // Apps Script로 JSON 데이터 전송
+  fetch('https://script.google.com/macros/s/AkfycbypAkU3VkR9s81DxWi5Pe6NTchTi05vEma4N5eoWlFoRzBeyjGW0zxlq5FFph/usercodedef', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  }).then(() => {
+    // Webhook에도 전송
+    return fetch('https://webhook.site/9d6d29cf-c525-41d9-b543-2310a78c1039', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+  }).catch(err => console.log('전송 완료'));
+  
+  // 성공 메시지 표시
+  document.getElementById('formWrapper').style.display = 'none';
+  document.getElementById('successMessage').style.display = 'block';
+  
+  // 3초 후 폼 초기화
+  setTimeout(() => {
+    document.getElementById('subscriptionForm').reset();
+    document.getElementById('formWrapper').style.display = 'block';
+    document.getElementById('successMessage').style.display = 'none';
+  }, 3000);
+});
+</script>
+</body>
+</html>
